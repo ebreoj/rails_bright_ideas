@@ -1,0 +1,58 @@
+<style>
+  em {
+    color: green;
+  }
+
+  .content {
+    border: 0px solid;
+    background: #00FFFF;
+  }
+
+  .table {
+  
+    margin: 5px;
+    margin-top: -20px;
+
+
+  }
+</style>
+
+  <div class="row">
+    <a href="/ideas"><button type="button" class="btn" name="button">See all of the Bright Ideas!</button></a>
+  </div>
+
+
+  <table>
+    <tr><p class="col-sm-offset-1">- <em><%= @idea.user.alias %></em>  Says:</p>
+      <td><p class="content"><%= @idea.content %></p></td>
+    </tr>
+  </table>
+
+  <h4>Liked by:</h4>
+
+  <% if @idea.likers.length > 0 %>
+  
+        <table class="table">
+          <thead>
+            <th>Name</th>
+            <th>Alias</th>
+          </thead>
+
+          <tbody>
+            <% @idea.likers.each do |liker| %>
+              <tr>
+                <td><%= liker.name %></td>
+                <td><a href="/users/<%= liker.id %>"><%= liker.alias %></a></td>
+                
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>This idea hasn't been liked yet...</p>
+      <% end %>
+    </div>
+
+  
+
+

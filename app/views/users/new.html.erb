@@ -1,0 +1,60 @@
+
+<style>
+.wrap {
+        display: inline-block;
+        margin: 40px;
+      
+        background: #5F9EA0;
+        padding: 20px; 
+        border-radius: 6px;     
+    }
+input {
+	line-height: 5px;
+	border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px;
+
+}
+h2 {
+	text-align: center;
+}
+</style>
+
+
+	<div class="wrap">
+  <h2>Register</h2>
+<form action="/users" method="post">
+  <input type="hidden" name="authenticity_token" value="authenticity_token">
+  
+  <label for= "name">First Name</label>
+  <input type="text" id="Name" name="register[name]"><br>
+
+  <label for= "alias">Last Name</label>
+  <input type="text" id="Alias" name="register[alias]"><br>
+
+  <label for= "email">Email</label>
+  <input type="text" id="Email" name="register[email]"><br>
+
+  <label for= "password">password</label>
+  <input type="password" id="Password" name="register[password]"><br>
+
+  <input type="submit" name="Register" value="Register">
+</div>
+
+</form>
+
+<div class="wrap">
+  </form>
+<h2>Login</h2>
+<form action="/sessions" method="post">
+  <input type="hidden" name="authenticity_token" value="authenticity_token">
+
+  <label for= "email">Email</label>
+  <input type="text" id="Email" name="login[email]"><br>
+
+  <label for="password">Password</label>
+  <input type="password"  id="Password" name="login[password]">
+
+  <input type="submit" name="Login" value="Login">
+
+</form>

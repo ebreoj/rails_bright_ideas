@@ -1,0 +1,96 @@
+
+<style>
+  .mainname {
+    color: blue;
+  }
+</style>
+
+<h2 class="mainname">Hi <%= current_user.name %>!!!</h2>
+<div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <h2 class="heading">Share your idea today!</h2>
+    </div>
+    <div class="col-sm-6">
+      <form action="/ideas" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <textarea name="idea[content]" class="form-control" rows="4" cols="60"></textarea><br>
+        <input class="btn" type="submit" value="Add the idea!">
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <h2 class="col-sm-offset-1">Most Liked Ideas</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <% if @ideas_ranked.length > 0 %>
+        <table class="table">
+          <% @ideas_ranked.each do |idea| %>
+            <tr>
+              <td><strong><a href="/users/<%= idea.user.id %>"><%= idea.user.alias %></a></strong> says "<%= idea.content %>"</td>
+              <td>
+                <% if idea.user === @current_user %>
+                    <a href="/ideas/<%= idea.id %>" data-method="delete"><button type="button" class=btn name="button">Delete</button></a>
+                <% end %>
+              </td>
+              <td>
+                <% if idea.likers.include? @current_user %>
+                  Liked!
+                <% else %>
+                  <form action="/likes" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="like[idea]" value="<%= idea.id %>">
+                    <input class="btn" type="submit" value="Like">
+                  </form>
+                <% end %>
+              </td>
+              <td><strong><a href="/ideas/<%= idea.id %>"><%= idea.likes.count %> people</a></strong> like this.</td>
+            </tr>
+          <% end %>
+        </table>
+      <% else %>
+        <p>Hmm, nothing liked yet...</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <h2 class="col-sm-offset-1">All Ideas</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <% if @ideas.length > 0 %>
+        <table class="table">
+          <% @ideas.each do |idea| %>
+            <tr>
+              <td><strong><a href="/users/<%= idea.user.id %>"><%= idea.user.alias %></a></strong> says "<%= idea.content %>"</td>
+              <td>
+                <% if idea.user === @current_user %>
+                  <a href="/ideas/<%= idea.id %>" data-method="delete"><button type="button" class=btn name="button">Delete</button></a>
+                <% end %>
+              </td>
+              <td>
+                <% if idea.likers.include? @current_user %>
+                  Liked!
+                <% else %>
+                  <form action="/likes" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input type="hidden" name="like[idea]" value="<%= idea.id %>">
+                    <input class="btn" type="submit" value="Like">
+                  </form>
+                <% end %>
+              </td>
+              <td><strong><a href="/ideas/<%= idea.id %>"><%= idea.likes.count %> people</a></strong> like this.</td>
+            </tr>
+          <% end %>
+        </table>
+      <% else %>
+        <p>Hmm, no ideas yet...</p>
+      <% end %>
+    </div>
+  </div>
+
+
